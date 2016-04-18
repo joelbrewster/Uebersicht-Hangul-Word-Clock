@@ -10,25 +10,25 @@ style =
   # Define the position, where to display the time.
   # Set properties you don't need to "auto"
   position:
-    bottom: "10px"
-    right:  "10px"
+    top: "20px"
+    left:  "10px"
 
   # Font properties
-  font:                 "'Andale Mono', sans-serif"
-  font_color:           "rgba(145, 145, 145, .8)"
-  font_color_active:    "rgba(245, 245, 245, 1)"
-  font_size:            "2vw"
-  font_weight:          "50"
-  letter_spacing:       "0.035em"
-  line_height:          "1.1em"
+  font:                 "'Fira Code', Fira Sans"
+  font_color:           "rgba(145, 145, 145, .4)"
+  font_color_active:    "rgba(255, 255, 255, 1)"
+  font_size:            "12vw"
+  font_weight:          "80"
+  letter_spacing:       ".95em"
+  line_height:          "1.0em"
 
   # Text shadow
   text_shadow:
     blur:           "0px"
     x_offset:       "1px"
     y_offset:       "1px"
-    color:          "rgba(0, 0, 0, .1)"
-    color_active:   "rgba(105, 105, 105, .4)"
+    color:          "rgba(0, 0, 0, .4)"
+    color_active:   "rgba(105, 105, 105, .8)"
 
 # Get the current hour as word.
 command: ""
@@ -52,13 +52,13 @@ render: (o) -> """
 
 
 update: (output, dom) ->
-  
+
   hours = [["밤","열","두"], ["한"], ["두"], ["세"], ["네"], ["다","섯"], ["여","섯"], ["일","곱"],
     ["여","덟"], ["아","홉"], ["열"], ["열","한"], ["열","두"]]
   minutes = [null, ["오2"], ["십1"], ["십2","오2"], ["이","십1"], ["이","십1","오2"], ["삼","십1"],["삼","십1","오2"], ["사","십2"],
     ["사","십2","오2"], ["오1","십2"], ["오1","십2","오2"]]
   noons = [["자","정"],["정","오1"]]
-  
+
   ligthOffAll = () ->$(dom).find(".active").removeClass("active")
   lightOn = (str) -> $(dom).find("##{str}").addClass("active")
   log = (str) -> $(dom).find("#log").html(str)
@@ -69,8 +69,8 @@ update: (output, dom) ->
   date   = new Date()
   minute = date.getMinutes()
   hour   = date.getHours()
-  
-  if (hour is 0 or hour is 12) and minute is 0 
+
+  if (hour is 0 or hour is 12) and minute is 0
     lightOn h_typo for h_typo in noons[Math.floor(hour / 12)]
   else
     h_idx = if hour > 12 then hour % 12 else hour
@@ -104,3 +104,4 @@ style: """
     text-shadow: #{@style.text_shadow.x_offset} #{@style.text_shadow.y_offset} #{@style.text_shadow.blur} #{@style.text_shadow.color_active}
 
 """
+
